@@ -19,7 +19,7 @@ public class CarController {
     private CarService carService;
 
     @GetMapping(value = "/cars")
-    public String printCarTable(Model model, @RequestParam(value = "count", required = false) Integer count) {
+    public String printCarTable(Model model, @RequestParam(value = "count", required = false, defaultValue = "5") Integer count) {
             model.addAttribute("carsList", carService.getCountCars(carService.getCarsList(), count));
         return "cars";
     }
