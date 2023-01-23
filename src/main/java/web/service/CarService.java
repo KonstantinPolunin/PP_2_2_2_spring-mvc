@@ -20,11 +20,12 @@ public class CarService {
     }
 
     public List<Car> getCountCars(List<Car> carList, Integer size) {
-        return carList.stream()
-                .limit(size)
-                .collect(Collectors.toList());
+        if (size != null) {
+            return carList.stream()
+                    .limit(size)
+                    .collect(Collectors.toList());
+        }
+        return carList;
     }
-
-
 }
 
