@@ -1,6 +1,7 @@
 package web.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,20 +15,15 @@ import java.util.List;
 
 @Controller
 public class CarController {
-    private static final List<Car> carsList = Arrays.asList(
-            new Car("VAZ", "o111oo", 2010),
-            new Car("UAZ", "o112oo", 2010),
-            new Car("LIAZ", "o113oo", 2010),
-            new Car("KRAZ", "o114oo", 2010),
-            new Car("KAMAZ", "o115oo", 2010));
-
+    @Autowired
+    private CarService carService;
 
     @GetMapping(value = "/cars")
     public String printCarTable(Model model, @RequestParam(value = "count", required = false) Integer count) {
         if (count != null) {
-            model.addAttribute("carsList", CarService.getCountCars(carsList, count));
+            model.addAttribute("carsList", carService.getCountCars(carService.getCarsList(), count));
         } else {
-            model.addAttribute("carsList", carsList);
+            model.addAttribute("carsList", carService.getCarsList());
         }
         return "cars";
     }
